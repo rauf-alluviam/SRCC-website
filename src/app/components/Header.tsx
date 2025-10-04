@@ -7,7 +7,7 @@ import CaseStudiesModal from "./CaseStudiesModal";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "SR E-LOCK", href: "/srelock" },
-  { name: "AutoMove", href: "/automove" },
+  { name: "AutoMove", href: "/AutoMove" },
   {
     name: "Resources",
     children: [
@@ -93,27 +93,22 @@ export default function Header() {
 
           {/* CTA & Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-4">
-           
             <button
               onClick={() => {
-                setQuoteSource("Get Quote - Header");
+                setQuoteSource("Get Quote");
                 setQuoteModalOpen(true);
               }}
+              className="hidden md:block px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 bg-[#F7941E] text-white text-sm sm:text-base md:text-base font-semibold rounded-md hover:bg-[#E8850D] transition-all shadow-sm hover:shadow-md"
             >
               Get Quote
             </button>
 
-           
             <button
-              onClick={() => {
-                setQuoteSource("Get Quote - Mobile Menu");
-                setQuoteModalOpen(true);
-                setMenuOpen(false);
-              }}
-            >
-              Get Quote
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden p-2 text-gray-700 hover:text-gray-900"
+            >   
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-
           </div>
         </div>
 
@@ -158,8 +153,8 @@ export default function Header() {
 
               <button
                 onClick={() => {
-                  setQuoteSource("Header");
-                  setQuoteModalOpen(true);
+                  setQuoteSource("Get Quote - Header");
+                   setQuoteModalOpen(true);
                   setMenuOpen(false);
                 }}
                 className="w-full mt-4 px-4 sm:px-5 py-3 bg-[#F7941E] text-white text-sm sm:text-base font-semibold rounded-md hover:bg-[#E8850D] transition-colors"
