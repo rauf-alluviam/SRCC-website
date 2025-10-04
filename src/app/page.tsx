@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CountUp from "react-countup";
 import AboutSection from "./components/About";
 import CapabilitiesPage from "./components/capabilities";
@@ -8,261 +8,313 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { FaTruck } from "react-icons/fa";
 import { motion } from "framer-motion";
-
+import CustomCursor from "./components/CustomCursor";
 import SustainabilityDashboard from "./components/Sustainability";
-import Footer from "./components/Footer";
-// import Preloader from "./components/preloader";
+// import Footer from "./components/Footer";
 import Testimonials from "./components/CustomerTestimonials";
 import SreLockSection from "./components/SRELockSystem";
 import IndustriesServed from "./components/industry";
-
+import QuoteModal from "./components/form";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import CaseStudiesModal from "./components/CaseStudiesModal";
+
 
 export default function HeroSection() {
-  const words = ["Transport.", "Secured.", "Visible.", "Sustainable."];
-  const [currentWord, setCurrentWord] = useState(0);
   const [truckStopped, setTruckStopped] = useState(false);
+  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [quoteSource, setQuoteSource] = useState(""); 
+  const [caseStudiesModalOpen, setCaseStudiesModalOpen] = useState(false);
 
-  const slides = [
-    { src: "/heroslider.png", alt: "Hero Slide" },
-    { src: "/1758259196copy.png", alt: "Control Room" },
-    { src: "/heroslider.png", alt: "Hero Slide 2" },
-    { src: "/team.png", alt: "Our Team" },
-  ];
-
-  useEffect(() => {
-    if (truckStopped && currentWord < words.length) {
-      const timer = setTimeout(() => setCurrentWord((prev) => prev + 1), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [currentWord, truckStopped]);
-
+const slides = [
+  { src: "/heroslider.png", alt: "Hero Slide", position: "center" },
+  { src: "/1758259196copy.png", alt: "Control Room", position: "top" },
+  { src: "/heroslider.png", alt: "Hero Slide 2", position: "center" },
+  { src: "/team.png", alt: "Our Team", position: "center" },
+];
   return (
     <>
-      {/* <Preloader/> */}
-      {/* ================= Hero Section ================= */}
+      <CustomCursor/>
+      
+            {/* ================= Hero Section ================= */}
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Background Slider */}
         <Swiper
           modules={[Autoplay]}
           loop
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           className="absolute inset-0 w-full h-full"
         >
           {slides.map((slide, idx) => (
             <SwiperSlide key={idx}>
-              <motion.div
-                className="relative w-full h-full"
-                initial={{ scale: 1.2 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 5, ease: "easeOut" }}
-              >
+              <div className="relative w-full h-full">
                 <Image
                   src={slide.src}
                   alt={slide.alt}
                   fill
-                  className="object-cover object-center"
-                  priority={idx === 0} 
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: slide.position, 
+                  }}
+                  priority={idx === 0}
+                  sizes="100vw"
                 />
-              </motion.div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
-
+        {/* Elegant Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 z-10" />
         
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40 z-10" />
+        {/* Truck Animation */}
         {!truckStopped && (
           <motion.div
             initial={{ x: "-100vw" }}
-            animate={{ x: "100vw" }}
-            transition={{ duration: 3, ease: "easeInOut" }}
+            animate={{ x: "50vw" }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
             onAnimationComplete={() => setTruckStopped(true)}
-            className="absolute bottom-10 sm:bottom-16 md:bottom-20 left-0 z-20 text-white text-4xl sm:text-5xl md:text-6xl"
+            className="absolute bottom-10 sm:bottom-16 md:bottom-20 left-0 z-20 text-[#F7941E] text-4xl sm:text-5xl md:text-6xl"
           >
             <FaTruck />
           </motion.div>
         )}
 
-        {/* Text Overlay */}
+        {/* Content Overlay */}
         {truckStopped && (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-20 px-4 sm:px-6 md:px-8">
-            {/* Heading */}
+            {/* Main Heading */}
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold drop-shadow-lg"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: [0, -10, 0] }}
-              transition={{
-                duration: 1,
-                y: { repeat: Infinity, duration: 5, ease: "easeInOut" },
-              }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-2xl leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              Transport. Secured. Visible. Sustainable.
+              Transport. Secured. <br />Visible. Sustainable.
             </motion.h1>
+            
+            {/* Subheading */}
             <motion.p
-              className="mt-4 sm:mt-6 text-base sm:text-lg md:text-2xl max-w-2xl sm:max-w-3xl leading-relaxed"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: [0, -6, 0] }}
-              transition={{
-                delay: 0.5,
-                duration: 1,
-                y: { repeat: Infinity, duration: 6, ease: "easeInOut" },
-              }}
+              className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-2xl max-w-xs sm:max-w-xl md:max-w-2xl leading-relaxed text-gray-100"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              Serving India’s industries since 2012 with{" "}
-              <span className="font-bold text-red-400">
-                <CountUp end={50000} duration={3} separator="," />+
+              Serving India's industries since 2012 with{" "}
+              <span className="font-bold text-[#F7941E]">
+                <CountUp end={ 50000 } duration={2.5} separator="," />+
               </span>{" "}
               trips, real-time tracking, and a digitally integrated fleet.
             </motion.p>
+            
+            
+            {/* CTA Buttons */}
             <motion.div
-              className="mt-6 sm:mt-10 flex flex-wrap gap-4 sm:gap-6 justify-center"
-              initial="hidden"
-              animate="show"
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.3 } },
+            className="mt-6 sm:mt-10 grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none justify-center items-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+          >
+         {["Track Shipment", "Try SRE Lock Free", "Download Case Study", "Get a Quote"].map((label, i) => (
+              <button
+                key={i}
+               className={`jsx-9d33d801249b9885 w-full sm:w-auto px-5 sm:px-8 py-2.5 sm:py-3
+                          rounded-full font-semibold text-sm sm:text-base text-white
+                          bg-[#F7941E] hover:bg-[#E8850D]`}
+
+                onClick={() => {
+                  if (label === "Download Case Study") {
+                    setCaseStudiesModalOpen(true); 
+                  } else {
+                    setQuoteSource(label);
+                    setQuoteModalOpen(true); 
+                  }
+                }}
+              >
+                {label}
+              </button>
+            ))}
+
+          </motion.div>
+
+
+            {/* Scroll Indicator */}
+            <motion.div 
+              className="absolute bottom-8 sm:bottom-12 cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              onClick={() => {
+                document.getElementById("fleet-section")?.scrollIntoView({ 
+                  behavior: "smooth" 
+                });
               }}
             >
-              {[
-                "Track Shipment",
-                "Try SRE Lock Free",
-                "Download Case Study",
-                "Get a Quote",
-              ].map((label, i) => (
-                <motion.button
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    show: { opacity: 1, y: 0 },
-                  }}
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base md:text-lg text-white bg-red-600 hover:bg-red-700 transition shadow-lg"
-                >
-                  {label}
-                </motion.button>
-              ))}
+              <div className="animate-bounce">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
             </motion.div>
           </div>
         )}
       </section>
 
-      {/*Fleet Showcase*/}
-      <section className="relative w-full py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-gray-100">
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <motion.h2
-            className="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-900 mb-6 sm:mb-10"
-            initial={{ opacity: 0, y: 40 }}
+      {/* ================= Fleet Showcase ================= */}
+      <section id="fleet-section" className="relative w-full py-16 sm:py-20 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Section Header */}
+          <motion.div
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            Our Fleet
-          </motion.h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#5A4A42] mb-4">
+              Our Fleet
+            </h2>
+            <div className="w-16 sm:w-20 h-1 bg-[#F7941E] mx-auto rounded-full"></div>
+          </motion.div>
 
-      
+          {/* Fleet Slider */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={20}
+            spaceBetween={16}
             slidesPerView={1}
             breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              640: { slidesPerView: 1, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 30 },
             }}
             navigation
             pagination={{ clickable: true }}
-            autoplay={{ delay: 3500 }}
-            className="px-2 sm:px-4"
+            autoplay={{ delay: 4000, pauseOnMouseEnter: true }}
+            className="fleet-swiper px-2 sm:px-4 pb-12"
           >
             {[
               {
                 title: "20ft & 40ft Trailers",
                 fuel: "Diesel / CNG",
-                feature:
-                  "Reliable container transport with ISO-certified chassis, GPS tracking, and safety systems.",
+                feature: "Reliable container transport with ISO-certified chassis, GPS tracking, and safety systems.",
                 img: "/container.png",
               },
               {
                 title: "20ft & 40ft Tippers",
                 fuel: "Diesel / CNG",
-                feature:
-                  "Hydraulic tilt unloading up to 39° for bulk cargo, fast turnaround in under 6 minutes.",
+                feature: "Hydraulic tilt unloading up to 39° for bulk cargo, fast turnaround in under 6 minutes.",
                 img: "/1758262116.png",
               },
               {
                 title: "ICERs & Boleros",
                 fuel: "Diesel / CNG",
-                feature:
-                  "Light-duty & air cargo transport vehicles designed for agility, speed, and cost efficiency.",
+                feature: "Light-duty & air cargo transport vehicles designed for agility, speed, and cost efficiency.",
                 img: "/1758261849.png",
               },
               {
                 title: "20ft CNG Trailers",
                 fuel: "CNG",
-                feature:
-                  "Eco-friendly transport with zero emissions, clean energy fleet for sustainable logistics.",
+                feature: "Eco-friendly transport with zero emissions, clean energy fleet for sustainable logistics.",
                 img: "/1758262287.png",
               },
             ].map((truck, idx) => (
               <SwiperSlide key={idx}>
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  className="relative bg-white rounded-xl overflow-hidden border border-gray-200 shadow-md group cursor-pointer"
-                >
-                  {/* Image */}
-                  <div className="w-full h-48 sm:h-56 md:h-64 relative">
+                <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer h-full">
+                  {/* Image Container */}
+                  <div className="w-full h-52 sm:h-60 md:h-72 relative overflow-hidden">
                     <Image
                       src={truck.img}
                       alt={truck.title}
                       fill
-                      className="object-cover object-center"
+                      className="object-contain sm:object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
+                    {/* Gradient Overlay on Image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
 
-                  
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2 sm:p-3 text-white">
-                    <h3 className="text-sm sm:text-base font-semibold">
+                  {/* Content Section */}
+                  <div className="p-6 bg-white">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#5A4A42] mb-2">
                       {truck.title}
                     </h3>
-                  </div>
-
-                 
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent text-white p-4 sm:p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100"
-                  >
-                    <h3 className="text-lg sm:text-xl font-bold mb-2">
-                      {truck.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm leading-relaxed">
+                    <p className="text-xs sm:text-sm text-gray-600 mb-3">
+                      <span className="inline-block px-3 py-1 bg-orange-50 text-[#F7941E] rounded-full font-medium">
+                        {truck.fuel}
+                      </span>
+                    </p>
+                    <p className="text-sm text-gray-700 leading-relaxed">
                       {truck.feature}
                     </p>
-                    <p className="text-xs sm:text-sm mt-2 italic">
-                      Fuel: {truck.fuel}
-                    </p>
-                  </motion.div>
-                </motion.div>
+                  </div>
+
+                  {/* Hover Border Effect */}
+                  <div className="absolute inset-0 border-2 border-[#F7941E] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </section>
+
       <AboutSection />
       <CapabilitiesPage />
       <SreLockSection />
       <SustainabilityDashboard />
       <IndustriesServed />
       <Testimonials />
-      <Footer />
+      {/* <Footer /> */}
+      
+      <QuoteModal
+        isOpen={quoteModalOpen}
+        onClose={() => setQuoteModalOpen(false)}
+        source={quoteSource}
+      />
+      <CaseStudiesModal
+      isOpen={caseStudiesModalOpen}
+      onClose={() => setCaseStudiesModalOpen(false)}
+    />
+
+
+      <style jsx global>{`
+        .fleet-swiper .swiper-button-next,
+        .fleet-swiper .swiper-button-prev {
+          color: #F7941E;
+          background: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease;
+        }
+
+        .fleet-swiper .swiper-button-next:hover,
+        .fleet-swiper .swiper-button-prev:hover {
+          background: #F7941E;
+          color: white;
+          transform: scale(1.1);
+        }
+
+        .fleet-swiper .swiper-button-next::after,
+        .fleet-swiper .swiper-button-prev::after {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .fleet-swiper .swiper-pagination-bullet {
+          width: 10px;
+          height: 10px;
+          background: #5A4A42;
+          opacity: 0.3;
+          transition: all 0.3s ease;
+        }
+
+        .fleet-swiper .swiper-pagination-bullet-active {
+          background: #F7941E;
+          opacity: 1;
+          width: 28px;
+          border-radius: 5px;
+        }
+      `}</style>
     </>
   );
 }
-
-
-
-

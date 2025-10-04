@@ -1,13 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class', // ✅ important for JS toggle
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
+  darkMode: false, // disables dark mode
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  theme: { extend: {} },
   plugins: [],
-};
+}

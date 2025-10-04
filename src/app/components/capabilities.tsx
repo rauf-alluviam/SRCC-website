@@ -35,11 +35,11 @@ export default function CapabilitiesPage() {
   return (
     <section className="relative w-full py-20 bg-gray-100">
       {/* Heading Section */}
-      <div className="max-w-7xl mx-auto px-6 text-center mb-16">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
+      <div className="max-w-7xl mx-auto px-6 text-center mb-20">
+        <h2 className="text-4xl lg:text-5xl font-serif font-bold text-[#5A4A42] mb-4">
           Our Capabilities
         </h2>
-        <p className="text-gray-700 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-700 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
           Efficient, reliable, and safe transport solutions across Gujarat and
           beyond.
         </p>
@@ -53,16 +53,16 @@ export default function CapabilitiesPage() {
             className="relative w-full h-[288px] overflow-hidden rounded-xl shadow-lg cursor-pointer group"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setActive(active === i ? null : i)} // toggle on mobile
+            onClick={() => setActive(active === i ? null : i)} 
           >
-            {/* Image */}
+            
             <motion.img
               src={service.img}
               alt={service.title}
               className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
             />
 
-            {/* Overlay */}
+            
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: active === i ? 1 : 0 }}
