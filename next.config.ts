@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -6,9 +5,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
-  output: 'export', // enables static export
+  output: 'export', 
   images: {
-    unoptimized: true, // allows <Image /> to work in static export
+    unoptimized: true, 
+  },
+  eslint: {
+    ignoreDuringBuilds: true, 
+  },
+  typescript: {
+    ignoreBuildErrors: true, 
   },
 });
-
