@@ -4,7 +4,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
-
+import 'leaflet/dist/leaflet.css';
+import WhatsAppChat from "./components/WhatsAppChat";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         <CustomCursor/>
         <Header/>
+          <WhatsAppChat /> 
         {children}
         <Footer/>
       </body>

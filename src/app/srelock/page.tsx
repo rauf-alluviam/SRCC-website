@@ -257,8 +257,9 @@ export default function LandingPage() {
       </section>
 
  {/* Features Section */}
-<section className="py-12 sm:py-14 lg:py-16 px-4 sm:px-6 relative">
+<section className="py-12 sm:py-14 lg:py-16 px-4 sm:px-6 relative bg-gradient-to-b from-white to-gray-50 overflow-hidden">
   <div className="max-w-7xl mx-auto">
+    {/* Heading */}
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -276,123 +277,220 @@ export default function LandingPage() {
         Advanced security technology that gives you complete control over your cargo
       </p>
     </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {features.map((feature, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group relative"
-              >
-                <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#F7941E]/30 h-full">
-                  {/* Icon */}
-                  <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                  </div>
 
-                  {/* Content */}
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.desc}</p>
+    {/* 🖥️ Desktop & Tablet Grid */}
+    <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+      {features.map((feature, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: idx * 0.1 }}
+          whileHover={{ y: -8 }}
+          className="group relative"
+          
+        >
+          <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#F7941E] h-full">
+            {/* Icon */}
+            <div
+              className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform`}
+            >
+              <feature.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+            </div>
 
-                  {/* Hover Accent */}
-                  <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-[#F7941E]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-              </motion.div>
-            ))}
+            {/* Content */}
+            <h3 className="text-lg sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">
+              {feature.title}
+            </h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              {feature.desc}
+            </p>
+
+            {/* Hover Accent */}
+<div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-[#F7941E]/10 to-transparent rounded-bl-[90%] rounded-tr-[30%] opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-[#F7941E]/10 to-transparent rounded-tr-2xl sm:rounded-tr-3xl opacity-0 group-hover:opacity-100 transition-opacity" */}
+
           </div>
-        </div>
-      </section>
+        </motion.div>
+      ))}
+    </div>
 
-      {/* How It Works */}
-      <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+    {/* 📱 Mobile Swipe Version */}
+    <div className="sm:hidden relative mt-6">
+      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-2">
+        {features.map((feature, idx) => (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            key={idx}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16 lg:mb-20"
+            transition={{ delay: idx * 0.1 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex-shrink-0 w-64 bg-white p-5 rounded-2xl shadow-lg border border-gray-100 snap-start transition-transform duration-300 hover:shadow-xl hover:-translate-y-1"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-[#F7941E] to-[#5A4A42] bg-clip-text text-transparent">
-                How It Works
-              </span>
-            </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-              Get started in 5 simple steps
+            {/* Icon */}
+            <div
+              className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4`}
+            >
+              <feature.icon className="w-7 h-7 text-white" />
+            </div>
+
+            {/* Text */}
+            <h3 className="text-lg font-bold text-gray-900 mb-1">
+              {feature.title}
+            </h3>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {feature.desc}
             </p>
           </motion.div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div className="relative">
-            {/* Animated Curved Wave Line - Desktop Only */}
-            <div className="hidden lg:block absolute top-32 left-0 right-0 h-40 pointer-events-none">
-              <svg className="w-full h-full" viewBox="0 0 1200 160" preserveAspectRatio="none">
-                <motion.path
-                  d="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
-                  stroke="url(#gradient)"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeDasharray="12 8"
-                  initial={{ pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
-                />
-                <circle r="6" fill="#F7941E">
-                  <animateMotion
-                    dur="8s"
-                    repeatCount="indefinite"
-                    path="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
-                  />
-                </circle>
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#F7941E" stopOpacity="0.3" />
-                    <stop offset="50%" stopColor="#F7941E" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.5" />
-                  </linearGradient>
-                </defs>
-              </svg>
+      {/* How It Works */}
+  <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
+
+    {/* Section Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="text-center mb-12 sm:mb-16 lg:mb-20"
+    >
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6">
+        <span className="bg-gradient-to-r from-[#F7941E] to-[#5A4A42] bg-clip-text text-transparent">
+          How It Works
+        </span>
+      </h2>
+      <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+        Get started in 5 simple steps
+      </p>
+    </motion.div>
+
+    {/* Desktop Version */}
+    <div className="hidden lg:block relative">
+      {/* Animated Curved Wave Line */}
+      <div className="absolute top-32 left-0 right-0 h-40 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 1200 160" preserveAspectRatio="none">
+          <motion.path
+            d="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
+            stroke="url(#gradient)"
+            strokeWidth="3"
+            fill="none"
+            strokeDasharray="12 8"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          />
+          <circle r="6" fill="#F7941E">
+            <animateMotion
+              dur="8s"
+              repeatCount="indefinite"
+              path="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
+            />
+          </circle>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#F7941E" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#F7941E" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.5" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        {steps.map((step, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.15 }}
+            className="relative flex flex-col items-center text-center"
+          >
+            {/* Number Badge */}
+            <motion.div whileHover={{ scale: 1.1, rotate: 5 }} className="relative z-10 mb-4 sm:mb-6">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-xl">
+                <step.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[#F7941E]">
+                <span className="text-xs sm:text-sm font-bold text-[#F7941E]">{step.num}</span>
+              </div>
+            </motion.div>
+
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+            <p className="text-sm sm:text-base text-gray-600 px-2">{step.desc}</p>
+
+            {/* Connecting dots for mobile/tablet */}
+            {idx < steps.length - 1 && (
+              <div className="lg:hidden w-1 h-8 bg-gradient-to-b from-[#F7941E]/50 to-transparent mt-4" />
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+
+{/* Mobile Version */}
+<div className="sm:hidden relative mt-4">
+  {/* Horizontal Scrollable Steps */}
+  <div className="relative">
+    {/* Curved Glow Line Behind Cards */}
+    <svg className="absolute top-12 left-0 w-full h-12 pointer-events-none">
+      <path
+        d="M16 20 C120 0, 260 40, 400 20 C540 0, 680 40, 800 20" 
+        stroke="url(#gradient)"
+        strokeWidth="4"
+        fill="transparent"
+        strokeLinecap="round"
+      />
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#F7941E" stopOpacity="0.4" />
+          <stop offset="50%" stopColor="#F7941E" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-hide px-2 relative z-10">
+      {steps.map((step, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: idx * 0.15, duration: 0.6 }}
+          whileTap={{ scale: 0.97 }}
+          className="flex-shrink-0 w-64 bg-white/70 backdrop-blur-xl rounded-2xl shadow-lg border border-[#F7941E]/10 snap-start text-center relative p-5"
+        >
+          {/* Icon with Number */}
+          <div className="relative flex justify-center mb-4">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-lg">
+              <step.icon className="w-7 h-7 text-white" />
             </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-              {steps.map((step, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.15 }}
-                  className="relative flex flex-col items-center text-center"
-                >
-                  {/* Number Badge */}
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="relative z-10 mb-4 sm:mb-6"
-                  >
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-xl">
-                      <step.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[#F7941E]">
-                      <span className="text-xs sm:text-sm font-bold text-[#F7941E]">{step.num}</span>
-                    </div>
-                  </motion.div>
-
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 px-2">{step.desc}</p>
-                  
-                  {/* Connecting dots for mobile/tablet */}
-                  {idx < steps.length - 1 && (
-                    <div className="lg:hidden w-1 h-8 bg-gradient-to-b from-[#F7941E]/50 to-transparent mt-4" />
-                  )}
-                </motion.div>
-              ))}
+            <div className="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#F7941E] font-bold text-[#F7941E] text-xs">
+              {step.num}
             </div>
           </div>
-        </div>
-      </section>
+
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
+          <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</section>
+
 
       {/* Who Can Benefit Section */}
       <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 bg-white relative">
@@ -521,108 +619,100 @@ export default function LandingPage() {
           </div>
 
           {/* Extra highlight box */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-8 sm:mt-12 bg-gradient-to-r from-[#F7941E] to-[#5A4A42] rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl"
-          >
-            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-white px-4">
-              Join 500+ businesses securing their cargo with confidence
-            </p>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-8 sm:mt-12 bg-gradient-to-r from-[#F7941E] to-[#5A4A42] rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl"
+            >
+              {/* Supporting line */}
+              <p className="text-base sm:text-lg lg:text-2xl text-white/95 font-medium px-4">
+                500+ businesses securing their cargo with confidence
+              </p>
+
+              {/* Big Question */}
+              <motion.h2
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: [1, 1.05, 1], opacity: 1 }}
+                transition={{ duration: 1, delay: 0.2, repeat: Infinity, repeatDelay: 2 }}
+                className="mt-3 sm:mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-2xl tracking-tight"
+              >
+                ARE YOU?
+              </motion.h2>
+            </motion.div>
+
         </div>
       </section>
 
       {/* Connect With Us CTA Section */}
-      <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-br from-[#5A4A42] via-[#5A4A42] to-[#F7941E]">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-[#F7941E]/10 rounded-full blur-3xl"
-        />
-        
-        <div className="max-w-6xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center space-y-6 sm:space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight mb-4 px-4">
-              Ready to Secure Your Cargo?
-            </h2>
-            <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8 sm:mb-12 px-4 max-w-3xl mx-auto">
-              Join 500+ businesses protecting their shipments with <span className="font-bold">SR E-Lock</span>. 
-              Get complete visibility, control, and peace of mind for every delivery.
-            </p>
+<section className="relative overflow-hidden bg-gradient-to-br from-[#5A4A42] via-[#5A4A42] to-[#F7941E] py-14 sm:py-16 px-6">
+  {/* Subtle moving glow accents */}
+  <motion.div
+    animate={{ rotate: 360 }}
+    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+    className="absolute top-10 right-10 w-56 h-56 bg-white/5 rounded-full blur-3xl"
+  />
+  <motion.div
+    animate={{ rotate: -360 }}
+    transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+    className="absolute bottom-10 left-10 w-56 h-56 bg-[#F7941E]/10 rounded-full blur-3xl"
+  />
 
-            {/* Contact Info Row */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8 sm:mb-12 px-4">
-              <motion.a
-                href="mailto:info@surajgroup.com"
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20 hover:border-white/40 transition-all group"
-              >
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-xl">📧</span>
-                </div>
-                <div className="text-left">
-                  <p className="text-white/70 text-xs">Email</p>
-                  <p className="text-white font-semibold text-sm">info@surajgroup.com</p>
-                </div>
-              </motion.a>
+  <div className="max-w-4xl mx-auto relative z-10 text-center space-y-5">
+    <motion.h2
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight"
+    >
+      Ready to Secure Your Cargo?
+    </motion.h2>
 
-              <motion.a
-                href="tel:9898280984"
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20 hover:border-white/40 transition-all group"
-              >
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-xl">📱</span>
-                </div>
-                <div className="text-left">
-                  <p className="text-white/70 text-xs">Phone</p>
-                  <p className="text-white font-semibold text-sm">91-9898280984</p>
-                </div>
-              </motion.a>
-            </div>
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.1, duration: 0.6 }}
+      className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed"
+    >
+      Join <span className="font-semibold text-white">500+ businesses</span> protecting their shipments with{" "}
+      <span className="font-bold text-white">SR E-Lock</span>. Experience total visibility and control.
+    </motion.p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
-              <button
-                 className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-white text-[#5A4A42] font-bold text-base sm:text-lg rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-white/20 transition-all"
-                onClick={() => {
-                  setQuoteSource(" Schedule a Demo →");
-                  setQuoteModalOpen(true);
-                }}
-              >
-               Schedule a Demo →
-              </button>
-                            
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-transparent text-white font-bold text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 border-white hover:bg-white/10 transition-all"
-              >
-                Contact Sales
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+    <motion.button
+      whileHover={{ scale: 1.05, y: -3 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 250 }}
+      className="mt-6 px-8 sm:px-12 py-3 sm:py-4 bg-white text-[#5A4A42] font-semibold text-base sm:text-lg rounded-full shadow-lg hover:shadow-white/30 transition-all"
+      onClick={() => {
+        setQuoteSource("Schedule a Demo →");
+        setQuoteModalOpen(true);
+      }}
+    >
+      Schedule a Demo 
+    </motion.button>
+  </div>
+  
+</section>
+       <style jsx>{` 
+            .scrollbar-hide::-webkit-scrollbar {
+              display: none;
+            }
+            .scrollbar-hide {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+              
+             
+      `}</style>
       <Form
         isOpen={quoteModalOpen}
         onClose={() => setQuoteModalOpen(false)}
         source={quoteSource}
       />
     </div>
-    
-  
+
+   
   );
 }

@@ -110,22 +110,24 @@ export default function TestimonialsFloating() {
             </motion.div>
           </AnimatePresence>
         </div>
+          {/* Navigation Arrows */}
+          <button
+            onClick={prev}
+            className="absolute left-0 sm:-left-10 top-1/2 -translate-y-1/2 
+                      bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center 
+                      text-[#5A4A42] text-2xl sm:text-3xl z-20 hover:text-[#F7941E] hover:scale-110 transition"
+          >
+            ←
+          </button>
 
-        
-        <button
-          onClick={prev}
-          className="absolute left-[-30px] top-1/2 transform -translate-y-1/2 text-[#5A4A42] text-2xl sm:text-3xl z-20 hover:text-[#F7941E] transition"
-        >
-          ←
-        </button>
-        <button
-          onClick={next}
-          className="absolute right-[-30px] top-1/2 transform -translate-y-1/2 text-[#5A4A42] text-2xl sm:text-3xl z-20 hover:text-[#F7941E] transition"
-        >
-          →
-        </button>
-
-       
+          <button
+            onClick={next}
+            className="absolute right-0 sm:-right-10 top-1/2 -translate-y-1/2 
+                      bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center 
+                      text-[#5A4A42] text-2xl sm:text-3xl z-20 hover:text-[#F7941E] hover:scale-110 transition"
+          >
+            →
+          </button>
         <div className="flex justify-center mt-6 gap-2">
           {testimonials.map((_, idx) => (
             <span

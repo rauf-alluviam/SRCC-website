@@ -1,18 +1,21 @@
 /** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: false, 
 });
 
-module.exports = withBundleAnalyzer({
+const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,
-  output: 'export', 
+  output: 'export',
+  trailingSlash: true,
   images: {
-    unoptimized: true, 
+    unoptimized: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, 
+    ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: true, 
+    ignoreBuildErrors: true,
   },
 });
+
+module.exports = nextConfig;

@@ -97,9 +97,9 @@ export default function AboutUs() {
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#5A4A42] mb-4 sm:mb-5 md:mb-6">
-            ABOUT SR CONTAINER CARRIERS
-          </h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#5A4A42] mb-4 sm:mb-5 md:mb-6 whitespace-nowrap">
+          ABOUT <br/><span className="text-[#5A4A42]">SR&nbsp;Container&nbsp;Carriers</span>
+        </h2>
           <p className="text-gray-600 text-sm sm:text-base md:text-base lg:text-lg mb-6 sm:mb-7 md:mb-8 leading-relaxed px-2 sm:px-0">
             Established in 2012 and part of the Suraj Group, SR Container Carriers is a Gujarat-based logistics company with a sharp focus on containerized, OEM, and air cargo transportation. We combine real-time visibility, in-house technology, sustainability, and fleet integrity to deliver peace of mind across every shipment.
           </p>

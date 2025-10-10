@@ -13,187 +13,237 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import QuoteModal from "./form";
+import CaseStudiesModal from "../components/CaseStudiesModal";
+
 export default function Footer() {
-   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
+  const [isCaseStudiesModalOpen, setIsCaseStudiesModalOpen] = useState(false);
 
   const openModal = (source: string) => {
     setModalSource(source);
     setIsModalOpen(true);
   };
+
   return (
-            <>
+    <>
       {/* Modal */}
       <QuoteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         source={modalSource}
       />
-       <footer className="relative text-[#5A4A42] overflow-hidden bg-white" style={{
-        backgroundImage: "url('/map-pattern.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 md:py-16">
+      <CaseStudiesModal
+        isOpen={isCaseStudiesModalOpen}
+        onClose={() => setIsCaseStudiesModalOpen(false)}
+      />
+
+      <footer 
+        className="relative text-[#5A4A42] overflow-hidden bg-white" 
+        style={{
+          backgroundImage: "url('/map-pattern.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
           {/* CTA */}
-          <div className="text-center mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6">
-              Ready to move your cargo with SRCC’s reliable and eco-friendly fleet?
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 px-2 leading-tight">
+              Ready to move your cargo with SRCC's reliable and eco-friendly fleet?
             </h2>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
-              <button
-                onClick={() => openModal("Request a Quote")}
-                className="bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105"
-              >
-                Request a Quote
-              </button>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
               <button
                 onClick={() => openModal("Book a CNG Truck Now")}
-                className="bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105"
+                className="w-full sm:w-auto bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-6 sm:px-8 py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105 text-sm sm:text-base"
               >
                 Book a CNG Truck Now
               </button>
             </div>
           </div>
 
-        {/* Footer Columns */}
-        <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-14 text-[#5A4A42]">
-          {/* About */}
-          <div className="flex-1 space-y-3">
-            <h3 className="text-lg sm:text-xl font-bold flex items-center gap-2">
-              <FaTruck className="text-[#F7941E] text-xl" /> SRCC Logistics
-            </h3>
-            <p className="text-sm sm:text-base leading-relaxed">
-              We provide reliable, safe, and eco-friendly truck transport solutions,
-              tailored to meet your business requirements.
-            </p>
-          </div>
+          {/* Footer Columns */}
+          <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-10 lg:gap-14 text-[#5A4A42]">
+            {/* About */}
+            <div className="flex-1 space-y-3">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold flex items-center gap-2">
+                <FaTruck className="text-[#F7941E] text-lg sm:text-xl" /> 
+                SRCC Logistics
+              </h3>
+              <p className="text-sm sm:text-base leading-relaxed">
+                We provide reliable, safe, and eco-friendly truck transport solutions,
+                tailored to meet your business requirements.
+              </p>
 
-          {/* Contact Info */}
-          <div className="flex-1 space-y-4">
-            <h3 className="text-lg sm:text-xl font-bold">Contact Information</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-sm sm:text-base">
-                <FaPhone className="text-[#F7941E] text-lg" />
-                <span>+91-9924304441</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm sm:text-base">
-                <FaEnvelope className="text-[#F7941E] text-lg" />
-                <a
-                  href="mailto:contact@srcc.example.com"
-                  className="hover:underline"
+              {/* Buttons under description */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <button
+                  onClick={() => setIsCaseStudiesModalOpen(true)}
+                  className="w-full sm:w-auto bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105 text-sm sm:text-base"
                 >
-                  mohit@srcontainercarriers.com
-                </a>
-              </li>
-              <li className="flex items-start gap-3 text-sm sm:text-base">
-                <FaMapMarkerAlt className="text-[#F7941E] text-lg mt-1" />
-                <a
-                  href="https://www.google.com/maps/place/Suraj+Forwarders+Private+Limited/@23.0246754,72.5655697,17z/data=!3m1!4b1!4m6!3m5!1s0x395e85c3d79b0881:0x3f9576a2646b22dc!8m2!3d23.0246705!4d72.5681446!16s%2Fg%2F11tcmmmdfv!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkyMi4wIKXMDSoASAFQAw%3D%3D"
-                  target="https://www.google.com/maps/place/Suraj+Forwarders+Private+Limited/@23.0246754,72.5655697,17z/data=!3m1!4b1!4m6!3m5!1s0x395e85c3d79b0881:0x3f9576a2646b22dc!8m2!3d23.0246705!4d72.5681446!16s%2Fg%2F11tcmmmdfv!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkyMi4wIKXMDSoASAFQAw%3D%3D"
-                  rel="noopener noreferrer"
-                  className="hover:underline leading-relaxed"
-                >
-                  A 204 / 205, Wall Street – II, Opp. Orient Club, Ellis Bridge,
-                  Ahmedabad – 380006 (INDIA)
-                </a>
-              </li>
-            </ul>
-          </div>
+                  Download Case Study
+                </button>
+              </div>
+            </div>
 
-          {/* Get in Touch */}
-          <div className="flex-1 space-y-3">
-            <h3 className="text-lg sm:text-xl font-bold">Get in Touch</h3>
-            <p className="text-sm sm:text-base leading-relaxed">
-              Have questions or want to learn more? Reach out via our contact form or
-              details above.
-            </p>
-            <Link
-              href="/contact-us"
-              className="inline-block bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105 text-sm sm:text-base"
-            >
-              Contact Us
-            </Link>
+            {/* Contact Info */}
+            <div className="flex-1 space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold">Contact Information</h3>
+              <ul className="space-y-2 sm:space-y-3">
+                <li className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                  <FaPhone className="text-[#F7941E] text-base sm:text-lg flex-shrink-0" />
+                  <a href="tel:+919924304441" className="hover:underline">
+                    +91-9924304441
+                  </a>
+                </li>
+                <li className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                  <FaEnvelope className="text-[#F7941E] text-base sm:text-lg flex-shrink-0" />
+                  <a
+                    href="mailto:mohit@srcontainercarriers.com"
+                    className="hover:underline break-all"
+                  >
+                    mohit@srcontainercarriers.com
+                  </a>
+                </li>
+                {/* Locations Section */}
+                <li className="flex items-start gap-3 sm:gap-4 text-xs sm:text-sm">
+                  <FaMapMarkerAlt className="text-[#F7941E] text-lg sm:text-xl mt-1 flex-shrink-0" />
+                  <div className="space-y-2">
+                    {/* Section Heading */}
+                    <h4 className="text-[#5A4A42] font-semibold text-sm sm:text-base mb-1">
+                      Where We Are
+                    </h4>
 
-            {/* Social Media Icons */}
-            <div className="flex gap-5 mt-5">
-              {[
-                { icon: FaFacebook, link: "https://facebook.com" },
-                { icon: FaTwitter, link: "https://twitter.com" },
-                { icon: FaInstagram, link: "https://instagram.com" },
-                { icon: FaLinkedin, link: "https://linkedin.com" },
-                { icon: FaYoutube, link: "https://youtube.com" },
-              ].map(({ icon: Icon, link }, i) => (
-                <a
-                  key={i}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-[#5A4A42] text-2xl transform transition-all duration-300 hover:scale-125 hover:-translate-y-1"
-                >
-                  <Icon />
-                </a>
-              ))}
+                    {/* Head Office */}
+                    <div className="leading-relaxed text-xs sm:text-sm">
+                      <span className="font-semibold text-[#5A4A42]">Head Office:</span>
+                      <a
+                        href="https://maps.app.goo.gl/z6BfrtJSdYqBveaF7"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-700 hover:text-[#5A4A42] hover:underline block"
+                      >
+                        A 204 / 205, Wall Street – II, Opp. Orient Club, Ellis Bridge, Ahmedabad – 380006 (INDIA)
+                      </a>
+                    </div>
+
+                    {/* Divider */}
+                    <hr className="border-gray-300" />
+
+                    {/* ICD Office */}
+                    <div className="leading-relaxed text-xs sm:text-sm">
+                      <span className="font-semibold text-[#5A4A42]">ICD Office:</span>
+                      <a
+                        href="https://maps.app.goo.gl/dxJaHPMHhJPDEed78"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-700 hover:text-[#5A4A42] hover:underline block"
+                      >
+                        Krishna Plaza, ICD Khodiyar,Opp. Gate No-2 Sarkhej-Gandhinagar Highway,Ahmedabad-382421
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Get in Touch */}
+            <div className="flex-1 space-y-3">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold">Get in Touch</h3>
+              <p className="text-sm sm:text-base leading-relaxed">
+                Have questions or want to learn more? Reach out via our contact form or
+                details above.
+              </p>
+              {/* <Link
+                href="/contact-us"
+                className="inline-block w-full sm:w-auto text-center bg-[#F7941E] hover:bg-[#5A4A42] text-white font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:scale-105 text-sm sm:text-base"
+              >
+                Contact Us
+              </Link> */}
+
+              {/* Social Media Icons */}
+              <div className="flex gap-4 sm:gap-5 mt-4 sm:mt-5">
+                {[
+                  { icon: FaLinkedin, link: "https://www.linkedin.com/company/sr-container-carriers/" },
+                  { icon: FaYoutube, link: "https://www.youtube.com/@SRContainerCarriers-i9t" },
+                ].map(({ icon: Icon, link }, i) => (
+                  <a
+                    key={i}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-[#5A4A42] text-xl sm:text-2xl transform transition-all duration-300 hover:scale-125 hover:-translate-y-1"
+                  >
+                    <Icon />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer Bottom Section */}
-      <div className="relative w-full overflow-hidden">
-        {/* Bottom Image overlapping the footer content */}
-        <div className="w-screen -mt-12 relative">
-          <img
-            src="/footer-shape.png"
-            alt="Footer Bottom Graphic"
-            className="w-screen max-w-full h-auto object-cover"
-          />
+        {/* Footer Bottom Section */}
+        <div className="relative w-full overflow-hidden bg-gradient-to-b from-white to-gray-50">
+          {/* Factory/Industrial Image - Full Width */}
+          <div className="w-full relative -mt-4 sm:-mt-8">
+            <img
+              src="/factory.png"
+              alt="Industrial Factory Landscape"
+              className="w-full h-auto object-cover"
+              style={{ maxHeight: "300px", minHeight: "150px" }}
+            />
 
-          {/* Truck Animations */}
-          <div className="absolute bottom-0 left-0 w-full h-24 overflow-hidden">
-            <img
-              src="/truck-1.png"
-              alt="Truck 1"
-              className="absolute bottom-0 w-16 sm:w-20 animate-truck-rtl"
-              style={{ animationDelay: "0s" }}
-            />
-            <img
-              src="/truck-2.png"
-              alt="Truck 2"
-              className="absolute bottom-0 w-20 sm:w-24 animate-truck-ltr"
-              style={{ animationDelay: "2s" }}
-            />
-            <img
-              src="/truck-3.png"
-              alt="Truck 3"
-              className="absolute bottom-0 w-12 sm:w-16 animate-truck-rtl"
-              style={{ animationDelay: "5s" }}
-            />
+            {/* Truck Animations */}
+            <div className="absolute bottom-0 left-0 w-full h-16 sm:h-20 md:h-24 overflow-hidden">
+              <img
+                src="/truck-1.png"
+                alt="Truck 1"
+                className="absolute bottom-0 w-12 sm:w-16 md:w-20 animate-truck-rtl"
+                style={{ animationDelay: "0s" }}
+              />
+              <img
+                src="/truck-2.png"
+                alt="Truck 2"
+                className="absolute bottom-0 w-14 sm:w-20 md:w-24 animate-truck-ltr"
+                style={{ animationDelay: "2s" }}
+              />
+              <img
+                src="/truck-3.png"
+                alt="Truck 3"
+                className="absolute bottom-0 w-10 sm:w-12 md:w-16 animate-truck-rtl"
+                style={{ animationDelay: "5s" }}
+              />
+            </div>
           </div>
         </div>
-        </div>
 
-          <div className="bg-blue-900 text-gray-200 py-4 flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 md:px-12">
+        <div className="bg-blue-900 text-gray-200 py-3 sm:py-4 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 px-4 sm:px-6 lg:px-8">
           {/* Copyright */}
-          <p className="text-center md:text-left text-xs sm:text-sm md:text-base">
-            &copy; {new Date().getFullYear()} <span className="font-semibold">SR Container Carriers</span>. 
-            Built with care by Suraj Group.
+          <p className="text-center md:text-left text-xs sm:text-sm leading-relaxed">
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="font-semibold">SR Container Carriers</span>.
+            <span className="hidden sm:inline"> Built with care by Suraj Group.</span>
+            <span className="block sm:hidden text-center mt-1">Built with care by Suraj Group.</span>
           </p>
 
           {/* Policy Links */}
-          <div className="flex gap-4 mt-2 md:mt-0 text-xs sm:text-sm md:text-base">
-            <Link href="/privacy" className="text-gray-200 hover:text-white hover:underline">
+          <div className="flex gap-3 sm:gap-4 text-xs sm:text-sm">
+            <Link 
+              href="/privacy" 
+              className="text-gray-200 hover:text-white hover:underline whitespace-nowrap"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-200 hover:text-white hover:underline">
+            <Link 
+              href="/terms" 
+              className="text-gray-200 hover:text-white hover:underline whitespace-nowrap"
+            >
               Terms of Service
             </Link>
           </div>
         </div>
-
-    </footer>
-    
-   </>
+      </footer>
+    </>
   );
 }

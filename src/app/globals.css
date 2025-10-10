@@ -2,6 +2,7 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
+@import 'leaflet/dist/leaflet.css';
 
 :root {
   --background: #ffffff;
@@ -55,5 +56,117 @@ body {
 .animate-truck-rtl {
   animation: moveRTL 10s linear infinite;
 }
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2.5s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+/* Hide scrollbar for modern browsers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+
+/* 🌟 MOBILE-ONLY ABOUT US STYLES (keeps desktop intact) */
+/* @media (max-width: 640px) {
+  section {
+    background: linear-gradient(to bottom, #fffdfa, #f7f5f3);
+    padding-top: 3rem !important;
+    padding-bottom: 4rem !important;
+  } */
+
+  /* Hero area tweaks */
+  /* section img {
+    border-radius: 1.5rem !important;
+    box-shadow: 0 8px 18px rgba(90, 74, 66, 0.25);
+    width: 90% !important;
+  } */
+
+  /* Headings - premium serif feel */
+  /* section h2 {
+    font-size: 1.9rem !important;
+    text-align: center !important;
+    line-height: 2.3rem !important;
+    color: #5a4a42 !important;
+    letter-spacing: -0.02em;
+  } */
+
+  /* Description paragraph - smoother reading */
+  /* section p {
+    font-size: 0.95rem !important;
+    line-height: 1.6rem !important;
+    text-align: justify !important;
+    color: #555 !important;
+  } */
+
+  /* Button: full width with luxury feel */
+  /* section button {
+    width: 100% !important;
+    max-width: 320px;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 6px 14px rgba(247, 148, 30, 0.3);
+  } */
+
+  /* Stats section: turn into horizontal scroll */
+  /* .mobile-stats-scroll {
+    display: flex !important;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+  } */
+/* 
+  .mobile-stats-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-stat-card {
+    min-width: 150px;
+    scroll-snap-align: center;
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  } */
+
+  /* Vision & Mission - stack vertically with breathing space */
+  /* .mobile-vision-mission {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .mobile-vision-mission > div {
+    border-radius: 1.25rem;
+    padding: 1.2rem;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-vision-mission h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .mobile-vision-mission p {
+    font-size: 0.9rem !important;
+    color: #555 !important;
+  } */
+
+
 
 

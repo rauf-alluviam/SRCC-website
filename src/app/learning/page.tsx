@@ -76,7 +76,7 @@ export default function LearningCenter() {
             whileHover={{ scale: 1.03 }}
             className="relative bg-white rounded-xl shadow-md overflow-hidden group transition hover:shadow-2xl"
           >
-          <div className="relative w-full h-48 sm:h-56 md:h-60 lg:h-64 xl:h-72">
+         <div className="relative w-full aspect-video">
             <Image
               src={`https://img.youtube.com/vi/${video.id}/0.jpg`}
               alt={video.title}

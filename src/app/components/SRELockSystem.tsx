@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaTruck, FaLock, FaFileInvoice, FaUser } from "react-icons/fa";
 import { GiRadarDish } from "react-icons/gi";
 import Form from "./form"
+
 type FeatureDetails = {
   subtitle: string;
   content?: string;
@@ -27,7 +28,7 @@ const features: Feature[] = [
       "Track shipments live with GPS + IoT devices for location, speed & ETA updates.",
     details: {
       subtitle: "Real-Time Tracking & Visibility",
-      content: `Stay in the know 24/7! Our trucks are equipped with cutting-edge GPS trackers and IoT sensors, feeding live data into our centralized platform. Check your container’s location, speed, and ETA anytime. Our dispatch team uses this data to optimize routes and tackle delays proactively.
+      content: `Stay in the know 24/7! Our trucks are equipped with cutting-edge GPS trackers and IoT sensors, feeding live data into our centralized platform. Check your container's location, speed, and ETA anytime. Our dispatch team uses this data to optimize routes and tackle delays proactively.
 
 Plus, SRCC offers a customer portal where you can track active shipments and access historical delivery data – transparency at your fingertips!`,
       image: "/tracking.png",
@@ -85,7 +86,7 @@ Faster invoicing, accurate records, and fully contactless – making logistics s
       "AI-driven routes, blockchain documentation, and IoT sensors – SRCC stays future-ready.",
     details: {
       subtitle: "Automation & Innovation",
-      content: `We’re always innovating! AI-driven route optimization reduces transit times and fuel use, while blockchain documentation ensures data security. Our IoT sensors monitor temperature and shock for sensitive cargo. SRCC is committed to delivering smarter, safer, and faster logistics – today and tomorrow.`,
+      content: `We're always innovating! AI-driven route optimization reduces transit times and fuel use, while blockchain documentation ensures data security. Our IoT sensors monitor temperature and shock for sensitive cargo. SRCC is committed to delivering smarter, safer, and faster logistics – today and tomorrow.`,
       image: "/future.png",
     },
     icon: FaTruck,
@@ -128,7 +129,7 @@ export default function TechnologyStack() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            At SRCC, we leverage cutting-edge technology to make freight transport smarter, safer, and more efficient. Transparency, security, and real-time control – that’s our promise.
+            At SRCC, we leverage cutting-edge technology to make freight transport smarter, safer, and more efficient. Transparency, security, and real-time control – that's our promise.
           </motion.p>
         </div>
 
@@ -185,6 +186,7 @@ export default function TechnologyStack() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setOpenFeature(null)}
           >
             <motion.div
               className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full p-6 sm:p-8 flex flex-col md:flex-row items-start gap-6 relative"
@@ -192,6 +194,7 @@ export default function TechnologyStack() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.4 }}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
               <motion.img
                 src={openFeature.details.image}
@@ -230,32 +233,34 @@ export default function TechnologyStack() {
           </motion.div>
         )}
       </AnimatePresence>
+
       {/* Form Modal */}
-<AnimatePresence>
-  {openForm && (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {/* Blur layer */}
-      <div className="absolute inset-0 backdrop-blur-sm"></div>
+      <AnimatePresence>
+        {openForm && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpenForm(false)}
+          >
+            {/* Blur layer */}
+            <div className="absolute inset-0 backdrop-blur-sm"></div>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/30"></div>
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-black/30"></div>
 
-      {/* Modal content */}
-      <div className="relative z-10 w-full max-w-lg">
-        <Form
-          isOpen={openForm}
-          onClose={() => setOpenForm(false)}
-          source={formSource}
-        />
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+            {/* Modal content */}
+            <div className="relative z-10 w-full max-w-lg" onClick={(e) => e.stopPropagation()}>
+              <Form
+                isOpen={openForm}
+                onClose={() => setOpenForm(false)}
+                source={formSource}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </section>
     

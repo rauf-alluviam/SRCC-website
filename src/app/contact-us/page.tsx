@@ -33,7 +33,7 @@ export default function ContactPage() {
           <button
             onClick={() =>
               window.open(
-                "https://www.google.com/maps/place/Suraj+Forwarders+Private+Limited/@23.0246754,72.5655697,17z",
+                "https://maps.app.goo.gl/z6BfrtJSdYqBveaF7",
                 "_blank"
               )
             }
@@ -137,7 +137,7 @@ export default function ContactPage() {
               <p className="font-bold text-sm sm:text-base">Headquarters</p>
               <p className="text-gray-600 text-sm sm:text-base">
                 <a
-                  href="https://www.google.com/maps/place/Suraj+Forwarders+Private+Limited/@23.0246754,72.5655697,17z"
+                  href="https://maps.app.goo.gl/z6BfrtJSdYqBveaF7"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline"
