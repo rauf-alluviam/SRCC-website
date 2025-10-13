@@ -202,29 +202,32 @@ export default function Header() {
       </header>
 
       {/* Quote Modal */}
-      {quoteModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm transition-all duration-300"
-          onClick={() => setQuoteModalOpen(false)}
-        >
-          <div
-            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg p-6 sm:p-8 z-10 transform scale-100 transition-all duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setQuoteModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition-all duration-300"
-            >
-              <X size={20} />
-            </button>
-            <QuoteModal
-              isOpen={quoteModalOpen}
-              onClose={() => setQuoteModalOpen(false)}
-              source={quoteSource}
-            />
-          </div>
-        </div>
-      )}
+
+{/* Quote Modal */}
+{quoteModalOpen && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-white/10 transition-all duration-300"
+    onClick={() => setQuoteModalOpen(false)}
+  >
+    <div
+      className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg p-6 sm:p-8 z-10 transform scale-100 transition-all duration-300"
+      onClick={(e) => e.stopPropagation()} 
+    >
+      {/* <button
+        onClick={() => setQuoteModalOpen(false)}
+        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition-all duration-300"
+      >
+        <X size={0} />
+      </button> */}
+      <QuoteModal
+        isOpen={quoteModalOpen}
+        onClose={() => setQuoteModalOpen(false)}
+        source={quoteSource}
+      />
+    </div>
+  </div>
+)}
+
 
       {/* Case Studies Modal */}
       <CaseStudiesModal

@@ -4,22 +4,44 @@ import { Truck, MapPin, Leaf, Gauge, Shield, Globe, Package, TrendingUp, Chevron
 import IndiaMap from '../components/PortMap';
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import PortMap from '../components/PortMap';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PortMap with SSR disabled
+const PortMap = dynamic(() => import('../components/PortMap'), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gray-200 rounded-2xl flex items-center justify-center">
+    <div className="text-gray-500">Loading map...</div>
+  </div>
+});
 
 const AutoMoveWebsite: React.FC = () => {
  
   const [current, setCurrent] = useState(0);
   const [scrollY, setScrollY] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
   const [counters, setCounters] = useState({ journeys: 0, years: 0 });
   const [overviewRef, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
   const [countersStarted, setCountersStarted] = useState(false);
-
-  
-
   const [isInteracting, setIsInteracting] = useState(false);
 
   const cardContainerRef = useRef<HTMLDivElement>(null);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Initialize window width after component mounts
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Set initial width
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const features = [
     {
@@ -59,7 +81,6 @@ const AutoMoveWebsite: React.FC = () => {
   const handleWheel = useCallback((e: WheelEvent) => {
     if (!isInteracting) return;
 
-
     const isAtStart = current === 0;
     const isAtEnd = current === features.length - 1;
     const isScrollingDown = e.deltaY > 0;
@@ -70,7 +91,6 @@ const AutoMoveWebsite: React.FC = () => {
     }
     e.preventDefault();
 
-    
     if (scrollTimeout.current) return;
 
     if (isScrollingDown) {
@@ -155,8 +175,8 @@ const AutoMoveWebsite: React.FC = () => {
       className="absolute inset-0 bg-cover bg-center transition-transform duration-100 scale-105"
       style={{
         backgroundImage: "url('/AutoMove(hero).png')",
-        transform: `translateY(${scrollY * (window.innerWidth < 768 ? 0.2 : 0.5)}px)`,
-        backgroundPosition: window.innerWidth < 640 ? 'center' : 'center',
+        transform: `translateY(${scrollY * (windowWidth < 768 ? 0.2 : 0.5)}px)`,
+        backgroundPosition: windowWidth < 640 ? 'center' : 'center',
       }}
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
@@ -259,30 +279,6 @@ const AutoMoveWebsite: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Service Tags - Premium Design */}
-        {/* <div className="flex flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-3">
-          <div className="group flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-50 to-orange-100/50 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-orange-100/50 hover:border-orange-200">
-            <div className="p-1.5 bg-white rounded-lg shadow-sm">
-              <Package className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: '#F7941E' }} />
-            </div>
-            <span className="text-xs sm:text-sm font-semibold text-gray-700">Containers</span>
-          </div>
-          
-          <div className="group flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-50 to-orange-100/50 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-orange-100/50 hover:border-orange-200">
-            <div className="p-1.5 bg-white rounded-lg shadow-sm">
-              <Truck className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: '#F7941E' }} />
-            </div>
-            <span className="text-xs sm:text-sm font-semibold text-gray-700">Fleet & Trailers</span>
-          </div>
-          
-          <div className="group flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-50 to-orange-100/50 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-orange-100/50 hover:border-orange-200">
-            <div className="p-1.5 bg-white rounded-lg shadow-sm">
-              <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: '#F7941E' }} />
-            </div>
-            <span className="text-xs sm:text-sm font-semibold text-gray-700">Tippers</span>
-          </div>
-        </div> */}
       </div>
 
       {/* Truck Image / Flip Card - Enhanced */}
@@ -628,7 +624,7 @@ const AutoMoveWebsite: React.FC = () => {
 
       {/* Description */}
       <p className="text-gray-200 text-sm leading-relaxed mb-8">
-        At AutoMove, we’re pioneering India’s clean-fuel vision with CNG-powered fleets, reducing carbon emissions for a more sustainable logistics ecosystem.
+        At AutoMove, we're pioneering India's clean-fuel vision with CNG-powered fleets, reducing carbon emissions for a more sustainable logistics ecosystem.
       </p>
 
       {/* Image */}
@@ -799,7 +795,7 @@ const AutoMoveWebsite: React.FC = () => {
 
     {/* Clickable Button with Glow Animation */}
     <motion.a
-      href="automove"
+      href="http://automove.co.in"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
@@ -848,7 +844,7 @@ const AutoMoveWebsite: React.FC = () => {
 
     {/* Mobile Button with Glow Animation */}
     <motion.a
-      href="automove"
+      href="http://automove.co.in"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
@@ -863,7 +859,7 @@ const AutoMoveWebsite: React.FC = () => {
           "linear-gradient(135deg, rgba(16,185,129,0.9) 0%, rgba(5,150,105,0.9) 100%)",
       }}
     >
-      Know how we’re powering the green revolution 👉
+      Know how we're powering the green revolution 👉
       <span className="absolute inset-0 rounded-full animate-pulse-glow"></span>
     </motion.a>
   </div>
