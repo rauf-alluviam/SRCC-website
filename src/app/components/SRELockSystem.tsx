@@ -39,7 +39,7 @@ Plus, SRCC offers a customer portal where you can track active shipments and acc
   {
     title: "Digital Documentation & e-LRs",
     description:
-      "Instantly generate Digital Lorry Receipts (LR) & electronic PODs with zero paperwork.",
+      "Instantly generate Digital Lorry Receipts (LR).",
     details: {
       subtitle: "Digital Documentation & e-LRs",
       content: `Forget lost papers! Our drivers and operations team generate digital LRs and capture electronic Proof of Delivery on handheld devices. You receive your shipment documentation instantly via email or portal.

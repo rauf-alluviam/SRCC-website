@@ -18,7 +18,7 @@ const services = [
   {
     title: "Tipper Movement",
     description:
-      "Hydraulic tippers (20ft, 40ft) with 239° tilt — unloads cargo 40% faster.",
+      "Hydraulic tippers (20ft, 40ft) with 239° tilt — unloads cargo 90% faster.",
     img: "/tippper2.png",
   },
   {
@@ -52,6 +52,7 @@ export default function CapabilitiesPage() {
             className="relative w-full h-96 overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
+            onClick={() => setActive(active === i ? null : i)}
           >
             <motion.img
               src={service.img}
@@ -60,6 +61,7 @@ export default function CapabilitiesPage() {
             />
             <motion.div
               initial={{ opacity: 0 }}
+              animate={{ opacity: active === i ? 1 : 0 }}
               whileHover={{ opacity: 1 }}
               className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center p-4 transition-opacity duration-700 ease-in-out"
             >

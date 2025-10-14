@@ -103,15 +103,22 @@ export default function AboutUs() {
           <p className="text-gray-600 text-sm sm:text-base md:text-base lg:text-lg mb-6 sm:mb-7 md:mb-8 leading-relaxed px-2 sm:px-0">
             Established in 2012 and part of the Suraj Group, SR Container Carriers is a Gujarat-based logistics company with a sharp focus on containerized, OEM, and air cargo transportation. We combine real-time visibility, in-house technology, sustainability, and fleet integrity to deliver peace of mind across every shipment.
           </p>
-          <motion.button
-            onClick={() => setShowVisionMission((prev) => !prev)}
-            className="px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold text-white bg-[#F7941E] hover:bg-[#5A4A42] rounded-lg sm:rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mx-auto lg:mx-0"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Learn More
-            <FaTruck className="text-white text-sm sm:text-base" />
-          </motion.button>
+        <motion.button
+        onClick={() => setShowVisionMission((prev) => !prev)}
+        className="px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold text-white bg-[#F7941E] hover:bg-[#5A4A42] rounded-lg sm:rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mx-auto lg:mx-0"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Learn More
+        <motion.span
+          className="text-white text-sm sm:text-base"
+          animate={{ x: [0, 5, -5, 0] }}   // move left and right
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        >
+          <FaTruck />
+        </motion.span>
+      </motion.button>
+
         </motion.div>
       </div>
 

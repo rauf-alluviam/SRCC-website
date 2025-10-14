@@ -356,21 +356,22 @@ const AutoMoveWebsite: React.FC = () => {
       {/* Mission & Vision */}
 <section className="relative w-full overflow-hidden py-8 sm:py-12 lg:py-0">
   {/* Desktop & Tablet Version */}
-  <div className="hidden sm:flex w-full min-h-[380px] lg:h-[400px] relative">
+  <div className="hidden sm:flex w-full min-h-[380px] md:h-[380px] lg:h-[400px] relative">
     {/* Hourglass Background */}
     <div className="absolute inset-0">
       <div
         className="w-full h-full bg-gradient-to-br from-[#5a4a42] to-[#4a3a32]"
         style={{
-          clipPath: "path('M0,0 C300,100 1240,100 1540,0 L1600,380 C1240,300 300,300 0,380 Z')",
-
+          clipPath: windowWidth >= 1024
+            ? "path('M0,0 C300,100 1240,100 1540,0 L1600,380 C1240,300 300,300 0,380 Z')"
+            : "path('M0,0 C200,60 1080,60 1400,0 L1600,380 C1240,300 300,300 0,380 Z')"
         }}
       ></div>
     </div>
 
     {/* Cards */}
     <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="w-full flex flex-col lg:flex-row items-stretch gap-4 sm:gap-6">
+     <div className="w-full flex flex-col md:flex-row items-stretch gap-4 sm:gap-6">
         {/* Mission */}
         <div className="relative w-full lg:w-1/2 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center mb-3 sm:mb-4 space-y-2 sm:space-y-0 sm:space-x-4">
@@ -448,11 +449,7 @@ const AutoMoveWebsite: React.FC = () => {
   {/* Bottom Curve */}
   <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#5a4a42] via-[#4a3a32] to-[#3b2f28] rounded-t-full z-0" />
 </div>
-
-
 </section>
-
-
 
 {/* Why Choose AutoMove Section */}
 <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
@@ -529,7 +526,6 @@ const AutoMoveWebsite: React.FC = () => {
 
 {/* Mobile Version */}
 
-
 <div className="sm:hidden relative py-12 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
   {/* Subtle top curve */}
   <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-[#5a4a42] to-[#4a3a32] rounded-b-full z-0" />
@@ -560,9 +556,6 @@ const AutoMoveWebsite: React.FC = () => {
     </div>
   </div>
 </div>
-
-
-
 
     {/* Navigation dots and buttons (Desktop only) */}
     <motion.div
@@ -795,7 +788,7 @@ const AutoMoveWebsite: React.FC = () => {
 
     {/* Clickable Button with Glow Animation */}
     <motion.a
-      href="http://automove.co.in"
+      href="https://automove.co.in/"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}

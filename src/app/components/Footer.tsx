@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 import {
   FaTruck,
@@ -19,6 +19,10 @@ export default function Footer() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
   const [isCaseStudiesModalOpen, setIsCaseStudiesModalOpen] = useState(false);
+
+  const [year, setYear] = useState<number | null>(null);
+useEffect(() => setYear(new Date().getFullYear()), []);
+
 
   const openModal = (source: string) => {
     setModalSource(source);
@@ -196,12 +200,12 @@ export default function Footer() {
 
             {/* Truck Animations */}
             <div className="absolute bottom-0 left-0 w-full h-16 sm:h-20 md:h-24 overflow-hidden">
-              <img
-                src="/truck-1.png"
-                alt="Truck 1"
-                className="absolute bottom-0 w-12 sm:w-16 md:w-20 animate-truck-rtl"
-                style={{ animationDelay: "0s" }}
-              />
+                <img
+                  src="/truck-1.png"
+                  className="absolute bottom-0 w-12 sm:w-16 md:w-20 animate-truck-rtl"
+                  style={{ animationDelay: "0s" }}
+                />
+
               <img
                 src="/truck-2.png"
                 alt="Truck 2"
@@ -220,9 +224,11 @@ export default function Footer() {
 
         <div className="bg-blue-900 text-gray-200 py-3 sm:py-4 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 px-4 sm:px-6 lg:px-8">
           {/* Copyright */}
-          <p className="text-center md:text-left text-xs sm:text-sm leading-relaxed">
-            &copy; {new Date().getFullYear()}{" "}
-            <span className="font-semibold">SR Container Carriers</span>.
+         <p>
+  &copy; {new Date().getFullYear()}{" "}
+  <span className="font-semibold">SR Container Carriers</span>.
+
+
             <span className="hidden sm:inline"> Built with care by Suraj Group.</span>
             <span className="block sm:hidden text-center mt-1">Built with care by Suraj Group.</span>
           </p>

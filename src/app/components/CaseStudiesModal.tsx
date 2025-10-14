@@ -93,14 +93,20 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-              <input
-                type="email"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full pl-10 pr-3 py-2.5 text-sm rounded-lg border-2 border-slate-200 focus:border-[#F7941E] focus:ring-2 focus:ring-orange-50 outline-none transition-all"
-              />
+       <input
+        type="email"
+        placeholder="name@company.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className={`
+          w-full pl-10 pr-3 py-2.5 text-sm rounded-lg border-2 border-slate-200
+          bg-white text-gray-800 placeholder-gray-500
+          focus:border-[#F7941E] focus:ring-2 focus:ring-orange-50
+          outline-none transition-all
+        `}
+      />
+
             </div>
           </div>
 
@@ -111,16 +117,21 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
             <div className="relative">
               <Download className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none z-10" size={16} />
               <select
-                value={pdf}
-                onChange={(e) => setPdf(e.target.value)}
-                required
-                className="w-full pl-10 pr-3 py-2.5 text-sm rounded-lg border-2 border-slate-200 focus:border-[#F7941E] focus:ring-2 focus:ring-orange-50 outline-none transition-all appearance-none bg-white cursor-pointer"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 0.5rem center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '1.5em 1.5em'
-                }}
+                 value={pdf}
+                  onChange={(e) => setPdf(e.target.value)}
+                  required
+                 className={`
+                    w-full pl-10 pr-3 py-2.5 text-sm rounded-lg border-2 border-slate-200
+                    bg-white text-gray-800 placeholder-gray-500
+                    focus:border-[#F7941E] focus:ring-2 focus:ring-orange-50
+                    outline-none transition-all appearance-none cursor-pointer
+                  `}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: 'right 0.5rem center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '1.5em 1.5em',
+             }}
               >
                 <option value="">Choose a case study...</option>
                 {caseStudies.map((study) => (

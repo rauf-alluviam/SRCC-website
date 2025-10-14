@@ -95,7 +95,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, source }) => {
 
         {/* Modal content */}
         <motion.div
-          className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 mx-4"
+          className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 mx-4 [color-scheme:light]"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
@@ -137,7 +137,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, source }) => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm placeholder-gray-500"
+                className="border border-gray-300 bg-[#F9FAFB] text-gray-800 placeholder:text-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm"
               />
 
                <input
@@ -146,8 +146,8 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, source }) => {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleChange}
-                className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm placeholder-gray-500"
-              />
+                className="border border-gray-300 bg-[#F9FAFB] text-gray-800 placeholder:text-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm"
+                />
                 <input
                   type="tel"
                   name="phone"
@@ -155,16 +155,15 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, source }) => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm placeholder-gray-500"
+                  className="border border-gray-300 bg-[#F9FAFB] text-gray-800 placeholder:text-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm"
                 />
                 <textarea
                   name="message"
                   placeholder={getMessagePlaceholder()}
                   value={formData.message}
                   onChange={handleChange}
-                  className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm resize-none h-28 placeholder-gray-500"
-                />
-
+                  className="border border-gray-300 bg-[#F9FAFB] text-gray-800 placeholder:text-gray-500 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F7941E] transition shadow-sm resize-none h-28"
+/>
                 <button
                   type="submit"
                   disabled={loading}

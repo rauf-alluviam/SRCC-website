@@ -106,34 +106,31 @@ const slides = [
               trips, real-time tracking, and a digitally integrated fleet.
             </motion.p>
             
-            {/* CTA Buttons */}
-            <motion.div
-            className="mt-6 sm:mt-10 grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none justify-center items-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          >
-         {["Track Shipment", "Try SRE Lock Free", "Download Case Study", "Get a Quote"].map((label, i) => (
-              <button
-                key={i}
-               className={`jsx-9d33d801249b9885 w-full sm:w-auto px-5 sm:px-8 py-2.5 sm:py-3
-                          rounded-full font-semibold text-sm sm:text-base text-white
-                          bg-[#F7941E] hover:bg-[#E8850D]`}
+       
+         <motion.div
+  className="mt-6 sm:mt-10 grid grid-cols-3 sm:flex sm:flex-row gap-3 sm:gap-4 w-full sm:justify-center"
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+>
+  {["Try SRE Lock Free", "Download Case Study", "Get a Quote"].map((label, i) => (
+    <button
+      key={i}
+      className="w-full sm:w-auto px-5 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base text-white bg-[#F7941E] hover:bg-[#E8850D]"
+      onClick={() => {
+        if (label === "Download Case Study") {
+          setCaseStudiesModalOpen(true); 
+        } else {
+          setQuoteSource(label);
+          setQuoteModalOpen(true); 
+        }
+      }}
+    >
+      {label}
+    </button>
+  ))}
+</motion.div>
 
-                onClick={() => {
-                  if (label === "Download Case Study") {
-                    setCaseStudiesModalOpen(true); 
-                  } else {
-                    setQuoteSource(label);
-                    setQuoteModalOpen(true); 
-                  }
-                }}
-              >
-                {label}
-              </button>
-            ))}
-
-          </motion.div>
 
 
             {/* Scroll Indicator */}
@@ -221,16 +218,16 @@ const slides = [
                   title: "20ft & 40ft Trailers",
                   fuel: "Diesel / CNG",
                   feature: "Reliable container transport with ISO-certified chassis, GPS tracking, and safety systems.",
-                  img: "/container.png",
+                  img: "/Trailer.png",
                 },
                 {
                   title: "20ft & 40ft Tippers",
                   fuel: "Diesel / CNG",
                   feature: "Hydraulic tilt unloading up to 39° for bulk cargo, fast turnaround in under 6 minutes.",
-                  img: "/tippper2.png",
+                  img: "/container.png",
                 },
                 {
-                  title: "ICERs & Boleros",
+                  title: "Pickup Truck",
                   fuel: "Diesel / CNG",
                   feature: "Light-duty & air cargo transport vehicles designed for agility, speed, and cost efficiency.",
                   img: "/Bolero_image.png",
@@ -239,7 +236,7 @@ const slides = [
                   title: "20ft CNG Trailers",
                   fuel: "CNG",
                   feature: "Eco-friendly transport with zero emissions, clean energy fleet for sustainable logistics.",
-                  img: "/1758262287.png",
+                  img: "/ChatGPT Image Oct 14, 2025, 04_45_14 PM.png",
                 },
               ].map((truck, idx) => (
                 <SwiperSlide key={idx}>

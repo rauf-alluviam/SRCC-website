@@ -351,7 +351,7 @@ export default function LandingPage() {
 </section>
 
       {/* How It Works */}
-  <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
+<section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
 
     {/* Section Header */}
@@ -371,14 +371,110 @@ export default function LandingPage() {
       </p>
     </motion.div>
 
-    {/* Desktop Version */}
-    <div className="hidden lg:block relative">
+    {/* Mobile Version (sm only) */}
+    <div className="block md:hidden relative mt-4">
+      <div className="relative">
+        {/* Curved Glow Line Behind Cards */}
+        <svg className="absolute top-12 left-0 w-full h-12 pointer-events-none">
+          <path
+            d="M16 20 C120 0, 260 40, 400 20 C540 0, 680 40, 800 20" 
+            stroke="url(#gradient-mobile)"
+            strokeWidth="4"
+            fill="transparent"
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient id="gradient-mobile" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#F7941E" stopOpacity="0.4" />
+              <stop offset="50%" stopColor="#F7941E" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-hide px-2 relative z-10">
+          {steps.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.15, duration: 0.6 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex-shrink-0 w-64 bg-white/70 backdrop-blur-xl rounded-2xl shadow-lg border border-[#F7941E]/10 snap-start text-center relative p-5"
+            >
+              <div className="relative flex justify-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-lg">
+                  <step.icon className="w-7 h-7 text-white" />
+                </div>
+                <div className="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#F7941E] font-bold text-[#F7941E] text-xs">
+                  {step.num}
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+  
+{/* iPad  */}
+{/* iPad - Clean Minimal Timeline */}
+<div className="hidden md:block lg:hidden mt-12 px-6">
+  <div className="relative max-w-4xl mx-auto">
+    {/* Vertical timeline line */}
+    <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#F7941E]/30 via-[#F7941E]/50 to-[#5A4A42]/30" />
+    
+    <div className="space-y-8">
+      {steps.map((step, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: idx * 0.1, duration: 0.5 }}
+          className="relative flex items-start gap-6 group"
+        >
+          {/* Timeline dot */}
+          <div className="relative flex-shrink-0">
+            <motion.div
+              whileHover={{ scale: 1.15 }}
+              className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-lg relative z-10"
+            >
+              <step.icon className="w-7 h-7 text-white" />
+            </motion.div>
+            {/* Step number badge */}
+            <div className="absolute -top-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#F7941E] z-20">
+              <span className="text-xs font-bold text-[#F7941E]">{step.num}</span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <motion.div
+            whileHover={{ x: 4 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1 bg-white border border-gray-200 rounded-xl p-5 shadow-sm group-hover:shadow-md transition-shadow"
+          >
+            <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
+            <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+          </motion.div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+    {/* Desktop Version (lg+) */}
+    <div className="hidden lg:grid grid-cols-5 gap-8 mt-8 relative">
       {/* Animated Curved Wave Line */}
       <div className="absolute top-32 left-0 right-0 h-40 pointer-events-none">
         <svg className="w-full h-full" viewBox="0 0 1200 160" preserveAspectRatio="none">
           <motion.path
             d="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
-            stroke="url(#gradient)"
+            stroke="url(#gradient-desktop)"
             strokeWidth="3"
             fill="none"
             strokeDasharray="12 8"
@@ -387,15 +483,8 @@ export default function LandingPage() {
             viewport={{ once: true }}
             transition={{ duration: 2, ease: "easeInOut" }}
           />
-          <circle r="6" fill="#F7941E">
-            <animateMotion
-              dur="8s"
-              repeatCount="indefinite"
-              path="M 0 80 Q 150 20, 300 80 T 600 80 T 900 80 T 1200 80"
-            />
-          </circle>
           <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id="gradient-desktop" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#F7941E" stopOpacity="0.3" />
               <stop offset="50%" stopColor="#F7941E" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.5" />
@@ -404,92 +493,31 @@ export default function LandingPage() {
         </svg>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-        {steps.map((step, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.15 }}
-            className="relative flex flex-col items-center text-center"
-          >
-            {/* Number Badge */}
-            <motion.div whileHover={{ scale: 1.1, rotate: 5 }} className="relative z-10 mb-4 sm:mb-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-xl">
-                <step.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-              </div>
-              <div className="absolute -top-2 -right-2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[#F7941E]">
-                <span className="text-xs sm:text-sm font-bold text-[#F7941E]">{step.num}</span>
-              </div>
-            </motion.div>
-
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-            <p className="text-sm sm:text-base text-gray-600 px-2">{step.desc}</p>
-
-            {/* Connecting dots for mobile/tablet */}
-            {idx < steps.length - 1 && (
-              <div className="lg:hidden w-1 h-8 bg-gradient-to-b from-[#F7941E]/50 to-transparent mt-4" />
-            )}
-          </motion.div>
-        ))}
-      </div>
-    </div>
-
-{/* Mobile Version */}
-<div className="sm:hidden relative mt-4">
-  {/* Horizontal Scrollable Steps */}
-  <div className="relative">
-    {/* Curved Glow Line Behind Cards */}
-    <svg className="absolute top-12 left-0 w-full h-12 pointer-events-none">
-      <path
-        d="M16 20 C120 0, 260 40, 400 20 C540 0, 680 40, 800 20" 
-        stroke="url(#gradient)"
-        strokeWidth="4"
-        fill="transparent"
-        strokeLinecap="round"
-      />
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#F7941E" stopOpacity="0.4" />
-          <stop offset="50%" stopColor="#F7941E" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#5A4A42" stopOpacity="0.4" />
-        </linearGradient>
-      </defs>
-    </svg>
-
-    <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-hide px-2 relative z-10">
       {steps.map((step, idx) => (
         <motion.div
           key={idx}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: idx * 0.15, duration: 0.6 }}
-          whileTap={{ scale: 0.97 }}
-          className="flex-shrink-0 w-64 bg-white/70 backdrop-blur-xl rounded-2xl shadow-lg border border-[#F7941E]/10 snap-start text-center relative p-5"
+          transition={{ delay: idx * 0.15 }}
+          className="relative flex flex-col items-center text-center"
         >
-          {/* Icon with Number */}
-          <div className="relative flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-lg">
-              <step.icon className="w-7 h-7 text-white" />
+          <motion.div whileHover={{ scale: 1.1, rotate: 5 }} className="relative z-10 mb-4 sm:mb-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#F7941E] to-[#5A4A42] flex items-center justify-center shadow-xl">
+              <step.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
             </div>
-            <div className="absolute -top-3 -right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#F7941E] font-bold text-[#F7941E] text-xs">
-              {step.num}
+            <div className="absolute -top-2 -right-2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[#F7941E]">
+              <span className="text-xs sm:text-sm font-bold text-[#F7941E]">{step.num}</span>
             </div>
-          </div>
-
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-          <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+          </motion.div>
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+          <p className="text-sm sm:text-base text-gray-600 px-2">{step.desc}</p>
         </motion.div>
       ))}
     </div>
   </div>
-</div>
-
-
-  </div>
 </section>
+
 
 
       {/* Who Can Benefit Section */}

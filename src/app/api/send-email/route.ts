@@ -34,7 +34,7 @@ async function sendEmail({
 }) {
   const transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
-    port: 587, // Outlook uses 587 for TLS
+    port: 587, 
     secure: false, // false for TLS
     auth: {
       user: process.env.EMAIL_USER, // your Outlook email
@@ -45,7 +45,7 @@ async function sendEmail({
   // ---------------- Owner Email ----------------
   await transporter.sendMail({
     from: `"SR Container Carriers" <${process.env.EMAIL_USER}>`,
-    to: "mohit@srcontainercarriers.com", 
+    to: "asthabhatt2005@gmail.com", 
     subject: `New Business Inquiry - ${name} via ${source}`,
     text: `New inquiry received\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\n\nSource: ${source}`,
     html: getEmailTemplate({ name, email, phone, message, source }),
