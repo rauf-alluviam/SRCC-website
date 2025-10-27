@@ -177,30 +177,47 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, source }) => {
     return !Object.values(newErrors).some((error) => error !== undefined);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://srccweb.s3-website.ap-south-1.amazonaws.com/api/send-email"
+    : "http://localhost:3001/api/send-email";
 
-    if (!validateForm()) {
-      return;
-    }
 
-    setLoading(true);
-    try {
-      const res = await fetch("http://localhost:3000/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, source }),
-      });
-      const data = await res.json();
-      setLoading(false);
-      if (data.success) setSubmitted(true);
-      else alert("Something went wrong. Please try again.");
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  setSubmitted(true);
+  setLoading(true);
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...formData, source }),
+    });
+
+
+    if (!res.ok) throw new Error("Network response was not ok");
+
+    const data = await res.json();
+    if (!data.success) {
       alert("Something went wrong. Please try again.");
+      setSubmitted(false);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Please try again.");
+    setSubmitted(false);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
 
   const resetForm = () => {
     setFormData({ name: "", email: "", phone: "", message: "" });

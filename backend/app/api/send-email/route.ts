@@ -1,26 +1,80 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import path from "path";
-import { handleOptions, corsResponse } from "../../../lib/cors";
-export async function OPTIONS() {
-  return handleOptions();
+import fs from "fs";
+
+// ---------------- CORS Setup ----------------
+const allowedOrigins = [
+  "http://localhost:3000", // local dev
+  "http://srccweb.s3-website.ap-south-1.amazonaws.com", // production
+  "https://srcc-website-git-main-asthas-projects-a512680d.vercel.app", // preview deployment
+];
+
+function corsResponse(body: any, status = 200, req?: NextRequest) {
+  const requestOrigin = req?.headers.get("origin") || "";
+  if (!allowedOrigins.includes(requestOrigin)) {
+    return NextResponse.json({ error: "CORS not allowed" }, { status: 403 });
+  }
+
+  const response = NextResponse.json(body, { status });
+  response.headers.set("Access-Control-Allow-Origin", requestOrigin);
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  response.headers.set("Access-Control-Allow-Credentials", "true");
+  return response;
+}
+
+function handleOptions(req: NextRequest) {
+  const requestOrigin = req.headers.get("origin") || "";
+  if (!allowedOrigins.includes(requestOrigin)) {
+    return new NextResponse(JSON.stringify({ error: "CORS not allowed" }), { status: 403 });
+  }
+
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": requestOrigin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Credentials": "true",
+    },
+  });
+}
+
+// ---------------- Preload Attachments ----------------
+const logoBuffer = fs.existsSync(path.join(process.cwd(), "public/logo.png"))
+  ? fs.readFileSync(path.join(process.cwd(), "public/logo.png"))
+  : null;
+
+const logo2Buffer = fs.existsSync(path.join(process.cwd(), "public/logo.png"))
+  ? fs.readFileSync(path.join(process.cwd(), "public/logo.png"))
+  : null;
+
+// ---------------- API Handlers ----------------
+export async function OPTIONS(req: NextRequest) {
+  return handleOptions(req);
 }
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin") || "";
+  if (!allowedOrigins.includes(origin)) {
+    return corsResponse({ error: "CORS not allowed" }, 403);
+  }
+
   try {
     const { name, email, phone, message, source } = await req.json();
 
-    // Await the sendEmail function so both emails are sent before response
-    await sendEmail({ name, email, phone, message, source });
+    // Send emails asynchronously (fire-and-forget)
+    void sendEmail({ name, email, phone, message, source });
 
-   
-    return corsResponse({ success: true });
-  } catch (error) {
-    console.error(error);
-    return corsResponse({ success: false, error: String(error) }, 500);
+    // Immediate success response with CORS headers
+    return corsResponse({ success: true }, 200, req);
+  } catch (err) {
+    return corsResponse({ success: false, error: String(err) }, 500, req);
   }
 }
 
+// ---------------- Email Sending Function ----------------
 async function sendEmail({
   name,
   email,
@@ -36,44 +90,36 @@ async function sendEmail({
 }) {
   const transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
-    port: 587, 
-    secure: false, // false for TLS
-    auth: {
-      user: process.env.EMAIL_USER, // your Outlook email
-      pass: process.env.EMAIL_PASS, // your email password or app password
-    },
+    port: 587,
+    secure: false,
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
   });
 
-  // ---------------- Owner Email ----------------
-  await transporter.sendMail({
-    from: `"SR Container Carriers" <${process.env.EMAIL_USER}>`,
-    to: "asthabhatt2005@gmail.com", 
-    subject: `New Business Inquiry - ${name} via ${source}`,
-    text: `New inquiry received\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\n\nSource: ${source}`,
-    html: getEmailTemplate({ name, email, phone, message, source }),
-    attachments: [
-      {
-        filename: "logo.png",
-        path: path.join(process.cwd(), "public/logo.png"),
-        cid: "srcc_logo",
-      },
-    ],
-  });
+  try {
+    // Prepare attachments safely
+    const ownerAttachments = logoBuffer ? [{ filename: "logo.png", content: logoBuffer, cid: "srcc_logo" }] : [];
+    const userAttachments = logo2Buffer ? [{ filename: "logo.png", content: logo2Buffer, cid: "srcc_logo" }] : [];
 
-  // ---------------- User Acknowledgment Email ----------------
-  await transporter.sendMail({
-    from: `"SR Container Carriers" <${process.env.EMAIL_USER}>`,
-    to: email, 
-    subject: `Thank You for Your Inquiry - SR Container Carriers`,
-    html: getAcknowledgmentTemplate({ name, message }),
-    attachments: [
-      {
-        filename: "logo.png",
-        path: path.join(process.cwd(), "public/logo.png"),
-        cid: "srcc_logo",
-      },
-    ],
-  });
+    // ---------------- Owner Email ----------------
+    await transporter.sendMail({
+      from: `"SR Container Carriers" <${process.env.EMAIL_USER}>`,
+      to: process.env.OWNER_EMAIL,
+      subject: `New Business Inquiry - ${name} via ${source}`,
+      html: getEmailTemplate({ name, email, phone, message, source }),
+      attachments: ownerAttachments,
+    });
+
+    // ---------------- User Acknowledgment ----------------
+    await transporter.sendMail({
+      from: `"SR Container Carriers" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: `Thank You for Your Inquiry - SR Container Carriers`,
+      html: getAcknowledgmentTemplate({ name, message }),
+      attachments: userAttachments,
+    });
+  } catch (err) {
+    console.error("Error sending emails:", err);
+  }
 }
 
 // ---------------- Owner Email Template ----------------

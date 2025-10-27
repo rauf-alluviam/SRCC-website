@@ -8,6 +8,11 @@ interface CaseStudiesModalProps {
   onClose: () => void;
 }
 
+interface CaseStudy {
+  file: string;
+  title: string;
+}
+
 export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalProps) {
   const [email, setEmail] = useState("");
   const [pdf, setPdf] = useState("");
@@ -16,93 +21,45 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
   const [pdfError, setPdfError] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
   const [pdfTouched, setPdfTouched] = useState(false);
+  const [source, setSource] = useState("website");
+  const fileName = pdf.split("/").pop() || "file.pdf";
 
-  const caseStudies = [
-    { file: "/SRCC AIVision website  flyer.pdf", title: "AI Vision Technology" },
-    { file: "/SRCC CNG Website Flyer Design.pdf", title: "CNG Fleet Management" },
-    { file: "/SRCC Tipper Case Study Website Flyer.pdf", title: "Tipper Operations" },
-  ];
 
-  const validateEmail = (email: string): string => {
+const caseStudies: CaseStudy[] = [
+  { file: "/case-studies/SRCC-AIVision-website-flyer.pdf", title: "AI Vision Technology" },
+  { file: "/case-studies/SRCC-CNG-Website-Flyer-Design.pdf", title: "CNG Fleet Management" },
+  { file: "/case-studies/SRCC-Tipper-Case-Study-Website-Flyer.pdf", title: "Tipper Operations" },
+];
+
+
+  // ----------------- Validation -----------------
+  const validateEmail = (email: string) => {
     if (!email.trim()) return "Email is required";
-    
-    // Basic email format validation
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) return "Please enter a valid email address";
-    
     if (email.length > 100) return "Email must be less than 100 characters";
-    
-    // Extract local part and domain
-    const [localPart, domain] = email.split('@');
-    const domainLower = domain?.toLowerCase();
-    
-    // List of common temporary/fake email domains to block
+
+    const [localPart, domain] = email.split("@");
+    if (!domain || domain.length < 3) return "Please enter a valid email domain";
+
     const blockedDomains = [
-      'tempmail.com', 'throwaway.email', '10minutemail.com', 'guerrillamail.com',
-      'mailinator.com', 'maildrop.cc', 'trashmail.com', 'yopmail.com',
-      'fakeinbox.com', 'temp-mail.org', 'getnada.com', 'dispostable.com',
-      'sharklasers.com', 'guerrillamail.info', 'grr.la', 'guerrillamail.biz',
-      'guerrillamail.org', 'guerrillamail.de', 'spam4.me', 'mintemail.com',
-      'mailnesia.com', 'emailondeck.com', 'throwawaymail.com', 'mytemp.email',
-      'mohmal.com', 'rootfest.net', 'tmpeml.info', 'anonbox.net',
-      'test.com', 'example.com', 'fake.com', 'dummy.com', 'invalid.com'
+      "tempmail.com", "mailinator.com", "example.com", "fake.com",
+      "dummy.com", "test.com"
     ];
-    
-    if (blockedDomains.includes(domainLower)) {
-      return "Please use a valid business or personal email address";
-    }
-    
-    // Block emails with suspicious patterns
-    if (/test|fake|dummy|spam|trash|temp|disposable/i.test(email)) {
-      return "Please enter a real email address";
-    }
-    
-    // Check for random/gibberish patterns in local part
-    if (localPart.length < 3) {
-      return "Please enter a valid email address";
-    }
-    
-    // Block purely numeric or random character sequences
-    if (/^[0-9]+$/.test(localPart)) {
-      return "Please enter a valid email address";
-    }
-    
-    // Block patterns like: xyz12, abc123, test123, random123, etc.
-    const hasOnlyRandomPattern = /^[a-z]{1,4}\d+$/i.test(localPart);
-    if (hasOnlyRandomPattern) {
-      return "Please enter a valid email address";
-    }
-    
-    // Block excessive numbers at the end (more than 4 digits suggests random/fake)
-    if (/\d{5,}/.test(localPart)) {
-      return "Please enter a valid email address";
-    }
-    
-    // Ensure domain has valid structure
-    if (!domainLower || !domainLower.includes('.')) {
-      return "Please enter a valid email domain";
-    }
-    
-    // Check for valid TLD
-    const tld = domainLower.split('.').pop();
-    if (!tld || tld.length < 2) {
-      return "Please enter a valid email domain";
-    }
-    
+    if (domain && blockedDomains.includes(domain.toLowerCase())) return "Please use a real email address";
+
     return "";
   };
 
-  const validatePdf = (pdf: string): string => {
+  const validatePdf = (pdf: string) => {
     if (!pdf.trim()) return "Please select a case study";
     return "";
   };
 
+  // ----------------- Handlers -----------------
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
-    if (emailTouched) {
-      setEmailError(validateEmail(value));
-    }
+    setEmail(e.target.value);
+    if (emailTouched) setEmailError(validateEmail(e.target.value));
   };
 
   const handleEmailBlur = () => {
@@ -111,11 +68,8 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
   };
 
   const handlePdfChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setPdf(value);
-    if (pdfTouched) {
-      setPdfError(validatePdf(value));
-    }
+    setPdf(e.target.value);
+    if (pdfTouched) setPdfError(validatePdf(e.target.value));
   };
 
   const handlePdfBlur = () => {
@@ -123,60 +77,8 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
     setPdfError(validatePdf(pdf));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate all fields
-    const emailValidation = validateEmail(email);
-    const pdfValidation = validatePdf(pdf);
-    
-    setEmailTouched(true);
-    setPdfTouched(true);
-    setEmailError(emailValidation);
-    setPdfError(pdfValidation);
-    
-    // If there are errors, don't submit
-    if (emailValidation || pdfValidation) {
-      return;
-    }
-    
-    setIsSubmitting(true);
-
-    await fetch("http://localhost:3000/api/send-lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, pdf }),
-    });
-
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    if (pdf === "all") {
-      caseStudies.forEach((study, i) => {
-        setTimeout(() => {
-          const link = document.createElement("a");
-          link.href = `/case-studies/${study.file}`;
-          link.download = study.file;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }, i * 600);
-      });
-    } else {
-      const link = document.createElement("a");
-      link.href = `/case-studies/${pdf}`;
-      link.download = pdf;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    setIsSubmitting(false);
-    handleClose();
-  };
-
   const handleClose = () => {
     onClose();
-    // Reset form
     setEmail("");
     setPdf("");
     setEmailError("");
@@ -184,6 +86,60 @@ export default function CaseStudiesModal({ isOpen, onClose }: CaseStudiesModalPr
     setEmailTouched(false);
     setPdfTouched(false);
   };
+  const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://srccweb.s3-website.ap-south-1.amazonaws.com/api/send-lead"
+    : "http://localhost:3001/api/send-lead";
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const emailValidation = validateEmail(email);
+  const pdfValidation = validatePdf(pdf);
+  setEmailTouched(true);
+  setPdfTouched(true);
+  setEmailError(emailValidation);
+  setPdfError(pdfValidation);
+  if (emailValidation || pdfValidation) return;
+
+  setIsSubmitting(true);
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, pdf, source }),
+    });
+    const data = await res.json();
+    console.log("API Response:", data);
+  } catch (err) {
+    console.error("Error sending lead:", err);
+  }
+
+  // Trigger download
+  const downloadFile = (filePath: string) => {
+    const link = document.createElement("a");
+    const fileName = filePath.split("/").pop() || "file.pdf";
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  if (pdf === "all") {
+    caseStudies.forEach((study, i) => {
+      setTimeout(() => downloadFile(study.file), i * 500);
+    });
+  } else {
+    downloadFile(pdf);
+  }
+
+  setIsSubmitting(false); // ✅ reset after download
+  handleClose();
+};
+
+
 
   if (!isOpen) return null;
 

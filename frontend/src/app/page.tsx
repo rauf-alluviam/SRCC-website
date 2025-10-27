@@ -20,12 +20,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import CaseStudiesModal from "./components/CaseStudiesModal";
 import LazySection from "./components/LazySection";
+import dynamic from "next/dynamic";
+
 
 export default function HeroSection() {
   const [truckStopped, setTruckStopped] = useState(false);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [quoteSource, setQuoteSource] = useState(""); 
   const [caseStudiesModalOpen, setCaseStudiesModalOpen] = useState(false);
+  
 
 const slides = [
   { src: "/heroslider.png", alt: "Hero Slide", position: "center" },

@@ -359,14 +359,21 @@ const AutoMoveWebsite: React.FC = () => {
   <div className="hidden sm:flex w-full min-h-[380px] md:h-[380px] lg:h-[400px] relative">
     {/* Hourglass Background */}
     <div className="absolute inset-0">
-      <div
-        className="w-full h-full bg-gradient-to-br from-[#5a4a42] to-[#4a3a32]"
-        style={{
-          clipPath: windowWidth >= 1024
-            ? "path('M0,0 C300,100 1240,100 1540,0 L1600,380 C1240,300 300,300 0,380 Z')"
-            : "path('M0,0 C200,60 1080,60 1400,0 L1600,380 C1240,300 300,300 0,380 Z')"
-        }}
-      ></div>
+<svg className="absolute w-full h-full" viewBox="0 0 1600 380" preserveAspectRatio="none">
+  <defs>
+    <clipPath id="hourglass">
+      <path d="M0,0 C300,100 1300,100 1600,0 
+               L1600,380 C1300,280 300,280 0,380 Z" />
+    </clipPath>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#5a4a42" />
+      <stop offset="100%" stopColor="#4a3a32" />
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#grad)" clipPath="url(#hourglass)" />
+</svg>
+
     </div>
 
     {/* Cards */}
@@ -459,8 +466,7 @@ const AutoMoveWebsite: React.FC = () => {
     className="absolute bottom-20 right-10 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-20 animate-pulse-slow"
     style={{ animationDelay: '1s' }}
   />
-
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 min-h-screen">
     {/* Section Heading */}
     <div className="text-center mb-16">
       <motion.div
@@ -651,7 +657,7 @@ const AutoMoveWebsite: React.FC = () => {
             desc: "Building a greener future for businesses and communities",
           },
         ].map((item, idx) => (
-          <div
+          <div 
             key={idx}
             className="flex items-start bg-white/10 backdrop-blur-md rounded-xl p-4 gap-4 shadow-md"
           >
